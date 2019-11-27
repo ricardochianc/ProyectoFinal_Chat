@@ -36,12 +36,17 @@ namespace API_Chat.Controllers
 
         // POST: GuatChat/User
         [HttpPost]
-        public IActionResult Create(User usuario)
+        public IActionResult Create([FromBody]User usuario)
         {
-            _userService.Create(usuario);
+            
+            var USER =_userService.Create(usuario);
 
-            return Ok(CreatedAtRoute("GetUser", new {id = usuario.Id}, usuario));
+            if (USER != null)
+            {
+                return Created("GuatChat/user/" + usuario.Id,usuario);
+            }
 
+            return Conflict();
         }
 
         // PUT: api/User/5
@@ -74,6 +79,13 @@ namespace API_Chat.Controllers
             return Ok(NoContent());
         }
 
+        [HttpPut]
+        public ActionResult Update([FromBody] Message mensaje)
+        {
+            _userService.UpdateMessage(mensaje.Emisor,mensaje);
+
+            return NoContent();
+        }
 
     }
 }

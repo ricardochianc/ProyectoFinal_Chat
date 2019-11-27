@@ -22,8 +22,8 @@ namespace API_Chat.Models
         public string Receptor { get; set; }
 
         [BsonElement]
-        [BsonRepresentation(BsonType.DateTime)]
-        public DateTime Fecha { get; set; }
+        [BsonRepresentation(BsonType.String)] //Probar DATETIME
+        public string Fecha { get; set; }
 
         [BsonElement]
         [BsonRepresentation(BsonType.String)]

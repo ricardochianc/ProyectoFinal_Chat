@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
 using MongoDB.Bson.IO;
 using Newtonsoft;
+using JsonConvert = Newtonsoft.Json.JsonConvert;
 
 namespace API_Chat.Services
 {
@@ -40,7 +41,17 @@ namespace API_Chat.Services
         /// <returns></returns>
         public User Create(User usuario)
         {
-            _Users.InsertOne(usuario);
+            var listaUsuarios = _Users.Find(user => true).ToList();
+
+            if (listaUsuarios.Find(_usuario => _usuario.Usuario == usuario.Usuario) == null)
+            {
+                _Users.InsertOne(usuario);
+            }
+            else
+            {
+                usuario = null;
+            }
+
             return usuario;
         }
 
@@ -68,13 +79,13 @@ namespace API_Chat.Services
         /// </summary>
         /// <param name="id">Identificador del usario que actúa como emisor</param>
         /// <param name="objMensaje">Objeto de tipo mensaje generado por front</param>
-        public void UpdateMessage(string id, Message objMensaje)
+        public void UpdateMessage(string id, object objMensaje)
         {
-            BsonDocument newSubDocument = BsonDocument.Parse(Newtonsoft.Json.JsonConvert.SerializeObject(objMensaje));
+            var newSubDocument = BsonDocument.Parse(JsonConvert.SerializeObject(objMensaje));
             newSubDocument.Remove("Id");
 
             string ID = ObjectId.GenerateNewId().ToString();
-            newSubDocument.Add(new BsonElement("Id", id));
+            newSubDocument.Add(new BsonElement("Id", ID));
             var filtrer = Builders<User>.Filter.Eq("Id", ObjectId.Parse(id));
             var update = Builders<User>.Update.Push("Mensajes", newSubDocument);
 
