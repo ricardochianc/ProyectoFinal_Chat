@@ -20,37 +20,38 @@ namespace API_Chat.Controllers
             _userService = userService;
         }
 
-        // GET: GuatChat/User/
-        [HttpGet("{id:length(24)}", Name = "GetUser")]
-        public ActionResult Get(string id)
+        // GET: GuatChat/User/Chat/id
+        [HttpGet("Perfil/{idEmisor:length(24)}")]
+        public ActionResult<User> GetUser([FromRoute] string idEmisor)
         {
-            var user = _userService.GetMessages(id);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(user);
+            return _userService.Get(idEmisor);
         }
 
-        // POST: GuatChat/User
-        [HttpPost]
+        // GET: GuatChat/User/Chat/idEmisor/idReceptor
+        [HttpGet("Chat/{idEmisor:length(24)}/{idReceptor:length(24)}", Name = "GetUser")]
+        public ActionResult<List<Message>> Get([FromRoute]string idEmisor, [FromRoute]string idReceptor)
+        {
+            return _userService.GetMessages(idEmisor, idReceptor);
+        }
+
+        // POST: GuatChat/User/Create
+        [HttpPost("Create")]
         public IActionResult Create([FromBody]User usuario)
         {
-            
-            var USER =_userService.Create(usuario);
+
+            var USER = _userService.Create(usuario);
 
             if (USER != null)
             {
-                return Created("GuatChat/user/" + usuario.Id,usuario);
+                return Created("GuatChat/User/Create/",USER);
             }
 
             return Conflict();
         }
 
-        // PUT: api/User/5
-        [HttpPut("{id:length(24)}")]
+        // PUT: GuatChat/User/Perfil/{id}
+        //Sirve para actualizar la información del usuario, solo para actualizar contraseñas o nombre
+        [HttpPut("Perfil/{id:length(24)}")]
         public ActionResult Update(string id, [FromBody] User usuario)
         {
             var Usuario = _userService.Get(id);
@@ -64,8 +65,8 @@ namespace API_Chat.Controllers
             return Ok();
         }
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id:length(24)}")]
+        // DELETE: GuatChat/User/Perfil/Eliminar/id
+        [HttpDelete("Perfil/Eliminar/{id:length(24)}")]
         public ActionResult Delete(string id)
         {
             var usuario = _userService.Get(id);
@@ -79,12 +80,17 @@ namespace API_Chat.Controllers
             return Ok(NoContent());
         }
 
-        [HttpPut]
-        public ActionResult UpdateMessage([FromBody] Message mensaje)
+        // PUT: GuatChat/User/Chat/idEmisor/idReceptor
+        [HttpPut("Chat/{idEmisor:length(24)}/{idReceptor:length(24)}", Name = "PutMessage")]
+        public ActionResult UpdateMessage([FromRoute]string idEmisor,[FromRoute] string idReceptor, [FromBody] Message mensaje)
         {
-            var username = _userService.UpdateMessageEmisor(mensaje.Emisor,mensaje);
+            mensaje.Emisor = idEmisor;
+            mensaje.Receptor = idReceptor;
 
-            var correct = _userService.UpdateMessageReceptor(mensaje.Receptor, username, mensaje);
+            //Username compuesto se refiere a la conbinación del username y el id del objeto de mongo
+            var usernameCompuesto = _userService.UpdateMessageEmisor(mensaje.Emisor, mensaje);
+
+            var correct = _userService.UpdateMessageReceptor(mensaje.Receptor, usernameCompuesto, mensaje);
 
             if (correct)
             {
@@ -94,5 +100,10 @@ namespace API_Chat.Controllers
             return NoContent(); //Solo se actulizó emisor
         }
 
+        [HttpGet("Conversaciones/{id:length(24)}")]
+        public ActionResult<List<string>> GetConversations([FromRoute]string id)
+        {
+            return _userService.GetConversations(id);
+        }
     }
 }

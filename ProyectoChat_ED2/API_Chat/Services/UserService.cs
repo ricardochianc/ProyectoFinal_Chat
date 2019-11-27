@@ -135,18 +135,26 @@ namespace API_Chat.Services
 
             return false;
         }
-
+        
         /// <summary>
-        /// Obtiene los mensajes del receptor, quiere decir que devuelve los mensajes con el usuario que se está hablando
+        /// Obtiene los mensajes de la conversación entre emisor y receptor
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="idEmisor">Viene de la ruta</param>
+        /// <param name="idReceptor">Viene de la ruta</param>
         /// <returns></returns>
-        public List<User> GetMessages(string usernameCompuesto) //Este id sería el del receptor
+        public List<Message> GetMessages(string idEmisor,string idReceptor)
         {
-            var messagefiltrer = Builders<User>.Filter.ElemMatch<User>("Mensajes", usernameCompuesto);
+            var Usuario = _Users.Find(user => user.Id == idEmisor).FirstOrDefault();
+            var enviados = Usuario.Mensajes.FindAll(mensaje => (mensaje.Emisor == idEmisor && mensaje.Receptor == idReceptor) || (mensaje.Emisor == idReceptor && mensaje.Receptor == idEmisor));
+            
+            return enviados;
 
-            return _Users.Find(messagefiltrer).ToList();
+        }
 
+        public List<string> GetConversations(string idEmisor)
+        {
+            var Usuario = _Users.Find(user => user.Id == idEmisor).FirstOrDefault();
+            return Usuario.Conversaciones;
         }
     }
 }
