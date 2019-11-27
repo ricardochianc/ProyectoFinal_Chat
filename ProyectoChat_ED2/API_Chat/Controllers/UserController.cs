@@ -80,11 +80,18 @@ namespace API_Chat.Controllers
         }
 
         [HttpPut]
-        public ActionResult Update([FromBody] Message mensaje)
+        public ActionResult UpdateMessage([FromBody] Message mensaje)
         {
-            _userService.UpdateMessage(mensaje.Emisor,mensaje);
+            var username = _userService.UpdateMessageEmisor(mensaje.Emisor,mensaje);
 
-            return NoContent();
+            var correct = _userService.UpdateMessageReceptor(mensaje.Receptor, username, mensaje);
+
+            if (correct)
+            {
+                return Ok(); //Se actualizaron emisor y receptor
+            }
+
+            return NoContent(); //Solo se actulizó emisor
         }
 
     }

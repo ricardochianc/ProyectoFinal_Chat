@@ -38,6 +38,6 @@ namespace API_Chat.Models
         public List<Message> Mensajes { get; set; }
 
         [BsonElement]
-        public List<string> Conversaciones { get; set; } //Tendrá los id de los usuarios con los que se ha hablado?
+        public List<string> Conversaciones { get; set; } //Tendrá los User de los usuarios con los que se ha hablado?
     }
 }

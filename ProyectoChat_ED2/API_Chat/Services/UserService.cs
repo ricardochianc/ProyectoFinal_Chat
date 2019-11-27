@@ -7,8 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using JsonConvert = Newtonsoft.Json.JsonConvert;
 
 namespace API_Chat.Services
 {
@@ -78,12 +76,64 @@ namespace API_Chat.Services
         /// </summary>
         /// <param name="id">Identificador del usario que actúa como emisor</param>
         /// <param name="objMensaje">Objeto de tipo mensaje generado por front</param>
-        public void UpdateMessage(string id, Message objMensaje)
+        public string UpdateMessageEmisor(string id, Message objMensaje)
         {
-            var listFiltrer = Builders<User>.Filter.Eq("Id", id);
+            var emisorFiltrer = Builders<User>.Filter.Eq("Id", id);
             var update = Builders<User>.Update.Push("Mensajes", objMensaje);
 
-            _Users.UpdateOne(listFiltrer, update);
+            _Users.UpdateOne(emisorFiltrer, update);
+
+            var receptorFiltrer = Builders<User>.Filter.Eq("Id", objMensaje.Receptor);
+
+            if (_Users.Find(receptorFiltrer).ToList().Count != 0) //Si es distinto de cero es porque si encontró al usuario en la collecion
+            {
+                var _receptor = _Users.Find(receptorFiltrer).ToList()[0];
+                var infoReceptor = _receptor.Username + "." + _receptor.Id; //username.12lkji2912ojad21G
+
+                var conversacionesFiltrer = Builders<User>.Filter.Eq("Id", objMensaje.Emisor) & Builders<User>.Filter.Eq("Conversaciones", infoReceptor);
+                
+                if (_Users.Find(conversacionesFiltrer).ToList().Count == 0)
+                {
+                    
+                    var updateConversacion = Builders<User>.Update.Push("Conversaciones", infoReceptor);
+
+                    _Users.UpdateOne(emisorFiltrer, updateConversacion);
+                }
+            }
+            
+            var us = _Users.Find(emisorFiltrer).ToList();
+
+            return us[0].Username +"." +us[0].Id;
+        }
+
+        /// <summary>
+        /// Método que manda y crea una conversación, actualiza mensajes de receptor y emisor
+        /// </summary>
+        /// <param name="idReceptor"> Id del receptor de la conversacion</param>
+        /// <param name="usernameCompuestoEmisor">username del emisor del mensaje, este caso compuesto por username y id</param>
+        /// <param name="objMensaje">Objeto mensaje que será creado en la vista del chat</param>
+        public bool UpdateMessageReceptor(string idReceptor, string usernameCompuestoEmisor, Message objMensaje)
+        {
+            var userFiltrer = Builders<User>.Filter.Eq("Id", idReceptor);
+
+            if (_Users.Find(userFiltrer).ToList().Count == 1) //Si ya se elimino retornará false
+            {
+                var conversacionesFiltrer = Builders<User>.Filter.Eq("Id", idReceptor) & Builders<User>.Filter.Eq("Conversaciones", usernameCompuestoEmisor);
+
+                if (_Users.Find(conversacionesFiltrer).ToList().Count == 0)
+                {
+                    var updateConversacion = Builders<User>.Update.Push("Conversaciones", usernameCompuestoEmisor);
+
+                    _Users.UpdateOne(userFiltrer, updateConversacion);
+                }
+
+                var update = Builders<User>.Update.Push("Mensajes", objMensaje);
+                _Users.UpdateOne(userFiltrer, update);
+
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -91,12 +141,11 @@ namespace API_Chat.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public List<User> GetMessages(string id) //Este id sería el del receptor
+        public List<User> GetMessages(string usernameCompuesto) //Este id sería el del receptor
         {
-            var messagefiltrer = Builders<User>.Filter.ElemMatch<BsonElement>(
-                "Mensajes", new BsonDocument {{"Receptor", id}});
+            var messagefiltrer = Builders<User>.Filter.ElemMatch<User>("Mensajes", usernameCompuesto);
 
-            return  _Users.Find(messagefiltrer).ToList();
+            return _Users.Find(messagefiltrer).ToList();
 
         }
     }
