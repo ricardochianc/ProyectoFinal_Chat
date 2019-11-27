@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace API_Chat.Models
@@ -30,15 +31,13 @@ namespace API_Chat.Models
         public string Contraseña { get; set; }
 
         [BsonElement]
-        [BsonRepresentation(BsonType.Int64)]
-        public long Telefono { get; set; }
+        [BsonRepresentation(BsonType.Int32)]
+        public int Telefono { get; set; }
 
         [BsonElement]
-        [BsonRepresentation(BsonType.Array)]
         public List<Message> Mensajes { get; set; }
 
         [BsonElement]
-        [BsonRepresentation(BsonType.Array)]
         public string[] Conversaciones { get; set; } //Tendrá los id de los usuarios con los que se ha hablado?
     }
 }
