@@ -7,8 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
-using MongoDB.Bson.IO;
-using Newtonsoft;
+using MongoDB.Bson.Serialization;
 using JsonConvert = Newtonsoft.Json.JsonConvert;
 
 namespace API_Chat.Services
@@ -43,7 +42,7 @@ namespace API_Chat.Services
         {
             var listaUsuarios = _Users.Find(user => true).ToList();
 
-            if (listaUsuarios.Find(_usuario => _usuario.Usuario == usuario.Usuario) == null)
+            if (listaUsuarios.Find(_usuario => _usuario.Username == usuario.Username) == null)
             {
                 _Users.InsertOne(usuario);
             }
@@ -79,22 +78,16 @@ namespace API_Chat.Services
         /// </summary>
         /// <param name="id">Identificador del usario que actúa como emisor</param>
         /// <param name="objMensaje">Objeto de tipo mensaje generado por front</param>
-        public void UpdateMessage(string id, object objMensaje)
+        public void UpdateMessage(string id, Message objMensaje)
         {
-            var newSubDocument = BsonDocument.Parse(JsonConvert.SerializeObject(objMensaje));
-            newSubDocument.Remove("Id");
+            var listFiltrer = Builders<User>.Filter.Eq("Id", id);
+            var update = Builders<User>.Update.Push("Mensajes", objMensaje);
 
-            string ID = ObjectId.GenerateNewId().ToString();
-            newSubDocument.Add(new BsonElement("Id", ID));
-            var filtrer = Builders<User>.Filter.Eq("Id", ObjectId.Parse(id));
-            var update = Builders<User>.Update.Push("Mensajes", newSubDocument);
-
-            _Users.UpdateOne(filtrer, update);
-
+            _Users.UpdateOne(listFiltrer, update);
         }
 
         /// <summary>
-        /// Obtiene los mensajes del receptor, quiere decir que devulve los mensajes con el usuario que se está hablando
+        /// Obtiene los mensajes del receptor, quiere decir que devuelve los mensajes con el usuario que se está hablando
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
