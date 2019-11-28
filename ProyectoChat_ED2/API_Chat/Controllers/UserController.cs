@@ -7,6 +7,7 @@ using API_Chat.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Utilidades;
 
 namespace API_Chat.Controllers
 {
@@ -46,7 +47,8 @@ namespace API_Chat.Controllers
         [HttpPost("Create")]
         public IActionResult Create([FromBody]User usuario)
         {
-
+            var sdes = new Utilidades.SDES(usuario.Contraseña,250);
+            usuario.Contraseña = sdes.CifrarContraseña();
             var USER = _userService.Create(usuario);
 
             if (USER != null)
@@ -121,7 +123,8 @@ namespace API_Chat.Controllers
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody]User userParameter)
         {
-            var jwt = _userService.Authenticate(userParameter.Username, userParameter.Contraseña);
+            var sdes = new SDES(userParameter.Contraseña,250);
+            var jwt = _userService.Authenticate(userParameter.Username, sdes.CifrarContraseña());
 
             //SI DEVUELVE UN JWT NULO, QUIERE DECIR QUE HUBO UN PROBLEMA CON LA AUTENTICACION
             if(jwt == null)
