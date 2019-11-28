@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API_Chat", "API_Chat\API_Chat.csproj", "{1FD5F9B3-B518-4780-9317-9C78732A857E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilidades", "Utilidades\Utilidades\Utilidades.csproj", "{9A0636F5-042C-4FD4-AB25-A4215503EA50}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{1FD5F9B3-B518-4780-9317-9C78732A857E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FD5F9B3-B518-4780-9317-9C78732A857E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FD5F9B3-B518-4780-9317-9C78732A857E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A0636F5-042C-4FD4-AB25-A4215503EA50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A0636F5-042C-4FD4-AB25-A4215503EA50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A0636F5-042C-4FD4-AB25-A4215503EA50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A0636F5-042C-4FD4-AB25-A4215503EA50}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
 using API_Chat.Models;
 using API_Chat.Services;
@@ -40,7 +41,16 @@ namespace API_Chat.Controllers
         [HttpGet("Chat/{idEmisor:length(24)}/{idReceptor:length(24)}", Name = "GetUser")]
         public ActionResult<List<Message>> Get([FromRoute]string idEmisor, [FromRoute]string idReceptor)
         {
-            return _userService.GetMessages(idEmisor, idReceptor);
+            var mensajesEnConversacion = _userService.GetMessages(idEmisor, idReceptor);
+
+            foreach (var mensaje in mensajesEnConversacion)
+            {
+                var sdes = new SDES(mensaje.Contenido, 250);
+                mensaje.Contenido = sdes.OperarMensaje(2);
+            }
+
+            return mensajesEnConversacion;
+
         }
 
         // POST: GuatChat/User/Create
@@ -98,6 +108,9 @@ namespace API_Chat.Controllers
             mensaje.Emisor = idEmisor;
             mensaje.Receptor = idReceptor;
 
+            var sdes = new SDES(mensaje.Contenido,250);
+            mensaje.Contenido = sdes.OperarMensaje(1);
+
             //Username compuesto se refiere a la conbinación del username y el id del objeto de mongo
             var usernameCompuesto = _userService.UpdateMessageEmisor(mensaje.Emisor, mensaje);
 
@@ -137,7 +150,5 @@ namespace API_Chat.Controllers
 
             return Ok(jwt);
         }
-        
-
     }
 }
