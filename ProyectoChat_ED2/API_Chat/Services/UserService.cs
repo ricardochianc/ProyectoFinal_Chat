@@ -18,9 +18,11 @@ namespace API_Chat.Services
     public class UserService
     {
         private readonly IMongoCollection<User> _Users;
+        private readonly AppSettings _appSettings;
 
-        public UserService(IConfiguration config)
+        public UserService(IConfiguration config, IOptions<AppSettings> appSettings)
         {
+            _appSettings = appSettings.Value;
             var client = new MongoClient(config.GetConnectionString("GuatChatDB"));
             var dataBase = client.GetDatabase("GuatChatDB");
             _Users = dataBase.GetCollection<User>("UsuariosGuatChat");
@@ -168,9 +170,7 @@ namespace API_Chat.Services
         }
 
         //********************************************************************************************************************************************************************************************************************************************************
-
-        private readonly AppSettings _appSettings;
-
+        
         public Jwt Authenticate(string userName, string password)
         {
             var user = _Users.Find(userX => userX.Username == userName && userX.Contraseña == password).FirstOrDefault();
