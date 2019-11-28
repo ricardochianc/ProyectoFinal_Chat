@@ -7,6 +7,11 @@ using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace API_Chat.Services
 {
@@ -160,6 +165,38 @@ namespace API_Chat.Services
         {
             var Usuario = _Users.Find(user => user.Id == idEmisor).FirstOrDefault();
             return Usuario.Conversaciones;
+        }
+
+        //********************************************************************************************************************************************************************************************************************************************************
+
+        private readonly AppSettings _appSettings;
+
+        public Jwt Authenticate(string userName, string password)
+        {
+            var user = _Users.Find(userX => userX.Username == userName && userX.Contraseña == password).FirstOrDefault();
+
+            if(user == null)
+            {
+                return null;
+            }
+
+            var jwt = new Jwt();
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, user.Id.ToString())
+                }),
+                Expires = DateTime.UtcNow.AddMinutes(10),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            jwt.Token = token.ToString();
+
+            return jwt;
         }
     }
 }

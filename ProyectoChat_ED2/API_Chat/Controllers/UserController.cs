@@ -123,7 +123,14 @@ namespace API_Chat.Controllers
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody]User userParameter)
         {
-            
+            var jwt = _userService.Authenticate(userParameter.Username, userParameter.Contraseña);
+
+            if(jwt == null)
+            {
+                return BadRequest(new { message = "USUARIO O CONTRASENA INCORRECTOS" } );
+            }
+
+            return Ok(jwt);
         }
         
 
