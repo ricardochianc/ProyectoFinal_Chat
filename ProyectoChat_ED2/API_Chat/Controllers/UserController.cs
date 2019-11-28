@@ -7,8 +7,6 @@ using API_Chat.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using API_Chat.Services;
-using API_Chat.Models;
 
 namespace API_Chat.Controllers
 {
