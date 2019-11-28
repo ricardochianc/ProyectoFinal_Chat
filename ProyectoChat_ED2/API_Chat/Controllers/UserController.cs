@@ -125,11 +125,13 @@ namespace API_Chat.Controllers
         {
             var jwt = _userService.Authenticate(userParameter.Username, userParameter.Contraseña);
 
+            //SI DEVUELVE UN JWT NULO, QUIERE DECIR QUE HUBO UN PROBLEMA CON LA AUTENTICACION
             if(jwt == null)
             {
                 return BadRequest(new { message = "USUARIO O CONTRASENA INCORRECTOS" } );
             }
 
+            //DE LO CONTRARIO, SE DEVOLVERA UN JWT CON LA INFORMACION PERTINENTE
             return Ok(jwt);
         }
         
