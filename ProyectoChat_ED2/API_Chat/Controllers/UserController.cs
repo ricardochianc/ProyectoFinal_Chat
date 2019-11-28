@@ -6,9 +6,13 @@ using API_Chat.Models;
 using API_Chat.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using API_Chat.Services;
+using API_Chat.Models;
 
 namespace API_Chat.Controllers
 {
+    //[Authorize]
     [Route("GuatChat/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -111,5 +115,17 @@ namespace API_Chat.Controllers
         {
             return _userService.GetConversations(id);
         }
+
+        //***************************************************************************************************************************************************
+
+        //POST: GuatChat/authenticate
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate([FromBody]User userParameter)
+        {
+            
+        }
+        
+
     }
 }
