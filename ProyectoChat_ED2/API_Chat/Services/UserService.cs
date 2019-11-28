@@ -189,7 +189,7 @@ namespace API_Chat.Services
                 {
                     new Claim(ClaimTypes.Name, user.Id.ToString())
                 }),
-                Expires = DateTime.UtcNow.AddMinutes(10),
+                Expires = DateTime.UtcNow.AddMinutes(3),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
@@ -198,6 +198,26 @@ namespace API_Chat.Services
             //jwt.Token = token.ToString();
 
             return jwt;
+        }
+
+        public void TokenIsValid(string jwt)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.ReadJwtToken(jwt);
+
+            var claimsList = token.Claims.ToList();
+
+
+            SecurityToken validatedToken;
+
+            var variable = tokenHandler.ValidateToken(jwt, new TokenValidationParameters
+            {
+                RequireExpirationTime = true
+            },
+            out validatedToken
+            );
+
+            
         }
     }
 }

@@ -130,6 +130,7 @@ namespace API_Chat.Controllers
             }
 
             //DE LO CONTRARIO, SE DEVOLVERA UN JWT CON LA INFORMACION PERTINENTE
+
             return Ok(jwt);
         }
         
