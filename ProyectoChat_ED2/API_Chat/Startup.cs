@@ -29,7 +29,6 @@ namespace API_Chat
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            services.AddScoped<UserService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         
             //ESTO SE UTILIZA PARA OBTENER LA FRASE SECRETA QUE SE UTILIZARA PARA LA ENCRIPTACION DE JWT
