@@ -194,7 +194,8 @@ namespace API_Chat.Services
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            jwt.Token = token.ToString();
+            jwt.Token = tokenHandler.WriteToken(token);
+            //jwt.Token = token.ToString();
 
             return jwt;
         }

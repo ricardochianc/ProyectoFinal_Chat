@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace API_Chat.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("GuatChat/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
