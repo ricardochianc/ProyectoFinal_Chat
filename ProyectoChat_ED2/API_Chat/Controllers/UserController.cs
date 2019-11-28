@@ -20,6 +20,12 @@ namespace API_Chat.Controllers
             _userService = userService;
         }
 
+        [HttpGet("AllUsers")]
+        public ActionResult<List<User>> GetAllUsers()
+        {
+            return _userService.GetAllUsers();
+        }
+
         // GET: GuatChat/User/Chat/id
         [HttpGet("Perfil/{idEmisor:length(24)}")]
         public ActionResult<User> GetUser([FromRoute] string idEmisor)
@@ -43,7 +49,7 @@ namespace API_Chat.Controllers
 
             if (USER != null)
             {
-                return Created("GuatChat/User/Create/",USER);
+                return Created("GuatChat/User/Create/Conversaciones/" + USER.Id, USER);
             }
 
             return Conflict();

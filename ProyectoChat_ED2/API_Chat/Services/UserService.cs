@@ -21,6 +21,11 @@ namespace API_Chat.Services
             _Users = dataBase.GetCollection<User>("UsuariosGuatChat");
         }
 
+        public List<User> GetAllUsers()
+        {
+            return _Users.Find(users => true).ToList();
+        }
+
         /// <summary>
         /// Obtiene un usuario en específico partiendo de un id generado por Mongo
         /// </summary>
