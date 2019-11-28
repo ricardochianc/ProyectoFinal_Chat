@@ -9,7 +9,6 @@ namespace MVC_Chat.Models
 {
     public class User
     {
-        
         public string Id { get; set; }
 
         [Display(Name = "Nombre")]

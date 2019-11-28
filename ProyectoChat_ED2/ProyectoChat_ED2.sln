@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API_Chat", "API_Chat\API_Ch
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilidades", "Utilidades\Utilidades\Utilidades.csproj", "{9A0636F5-042C-4FD4-AB25-A4215503EA50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC_Chat", "MVC_Chat\MVC_Chat.csproj", "{27F18D6C-11A2-459E-8ED5-C15825600D82}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC_Chat", "MVC_Chat\MVC_Chat.csproj", "{F0C1E0EE-D413-408D-AB01-231B55077CBB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{9A0636F5-042C-4FD4-AB25-A4215503EA50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A0636F5-042C-4FD4-AB25-A4215503EA50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A0636F5-042C-4FD4-AB25-A4215503EA50}.Release|Any CPU.Build.0 = Release|Any CPU
-		{27F18D6C-11A2-459E-8ED5-C15825600D82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{27F18D6C-11A2-459E-8ED5-C15825600D82}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{27F18D6C-11A2-459E-8ED5-C15825600D82}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{27F18D6C-11A2-459E-8ED5-C15825600D82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0C1E0EE-D413-408D-AB01-231B55077CBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0C1E0EE-D413-408D-AB01-231B55077CBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0C1E0EE-D413-408D-AB01-231B55077CBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0C1E0EE-D413-408D-AB01-231B55077CBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
