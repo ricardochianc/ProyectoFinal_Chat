@@ -44,6 +44,7 @@ namespace API_Chat.Controllers
         }
 
         // POST: GuatChat/User/Create
+        [AllowAnonymous]
         [HttpPost("Create")]
         public IActionResult Create([FromBody]User usuario)
         {
