@@ -86,8 +86,8 @@ namespace API_Chat.Controllers
             return Ok();
         }
 
-        // DELETE: GuatChat/User/Perfil/Eliminar/id
-        [HttpDelete("Perfil/Eliminar/{id:length(24)}")]
+        // DELETE: GuatChat/User/Perfil/id
+        [HttpDelete("Perfil/{id:length(24)}")]
         public ActionResult Delete(string id)
         {
             var usuario = _userService.Get(id);
@@ -132,7 +132,7 @@ namespace API_Chat.Controllers
 
         //***************************************************************************************************************************************************
 
-        //POST: GuatChat/authenticate
+        //POST: GuatChat/User/authenticate
         [AllowAnonymous]
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody]User userParameter)

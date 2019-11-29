@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace MVC_Chat.Controllers
 {
-    public class HomeController : Controller
+    public class LoginController : Controller
     {
         public ActionResult Index()
         {

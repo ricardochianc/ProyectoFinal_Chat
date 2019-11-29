@@ -13,27 +13,27 @@ namespace MVC_Chat.Models
 
         [Display(Name = "Nombre")]
         [DataType(DataType.Text)]
-        [Required(ErrorMessage = "SE NECESITA UN NOMBRE")]
+        [Required(ErrorMessage = "Debe de ingresar su nombre")]
         public string Nombre { get; set; }
 
         [Display(Name = "Appellido")]
         [DataType(DataType.Text)]
-        [Required(ErrorMessage = "SE NECESITA UN APELLIDO")]
+        [Required(ErrorMessage = "Debe de ingresar su apellido")]
         public string Apellido { get; set; }
 
         [Display(Name = "Usuario")]
         [DataType(DataType.Text)]
-        [Required(ErrorMessage = "DEBE INGRESAR SU NOMBRE DE USUARIO")]
+        [Required(ErrorMessage = "Debe de ingresar un usuario")]
         public string Username { get; set; }
 
         [Display(Name = "Contraseña")]
         [DataType(DataType.Password)]
-        [Required(ErrorMessage = "NECESITA INGRESAR UNA CONTRASENA")]
+        [Required(ErrorMessage = "Debe de ingresar una contraseña")]
         public string Contraseña { get; set; }
 
         [Display(Name = "Teléfono")]
         [DataType(DataType.PhoneNumber)]
-        [Required(ErrorMessage = "DEBE INGRESAR SU NUMERO DE TELEFONO")]
+        [Required(ErrorMessage = "Debe de ingresar un número de teléfono")]
         public int Telefono { get; set; }
                 
         public List<Message> Mensajes { get; set; }
