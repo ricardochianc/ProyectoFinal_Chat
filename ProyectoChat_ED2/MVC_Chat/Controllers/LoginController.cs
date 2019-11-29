@@ -42,14 +42,6 @@ namespace MVC_Chat.Controllers
 
                 Data.Instancia.GuatChatService.cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", jwt.Token);
 
-                //using (var storage = new LocalStorage())
-                //{
-                //    storage.Clear();
-                //    storage.Store("Token", jwt.Token);
-                //    storage.Store("id", user.Username);
-
-                TempData["token"] = jwt.Token;
-
                 return RedirectToAction("HomePerfil", "Perfil");
             }
             //Aqui va algo para decirle al usuario que su usuario y contraseña
