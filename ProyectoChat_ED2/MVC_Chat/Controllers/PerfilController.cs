@@ -53,35 +53,5 @@ namespace MVC_Chat.Controllers
 
             return View(user);
         }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult MenuResult(FormCollection collection)
-        {
-            try
-            {
-                if (collection["CrearConversacion"] != null)
-                {
-                    return RedirectToAction("", "");
-                }
-                else if(collection["Conversaciones"] != null)
-                {
-                    return RedirectToAction("", "");
-                }
-                else if (collection["EditarPerfil"] != null)
-                {
-                    return RedirectToAction("", "");
-                }
-                else if (collection["EliminarPerfil"] != null)
-                {
-                    return RedirectToAction("", "");
-                }
-            }
-            catch (Exception e)
-            {
-                return RedirectToAction("HomePerfil");
-            }
-
-            return null;
-        }
     }
 }
