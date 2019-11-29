@@ -16,27 +16,38 @@ namespace MVC_Chat.Controllers
         public ActionResult HomePerfil()
         {
             var id = new Jwt().ObtenerId();
-            var direccion = "Perfil/" + id;
-            var respuesta = Data.Instancia.GuatChatService.cliente.GetAsync(direccion);
-            respuesta.Wait();
 
-            var result = respuesta.Result;
-
-            if (result.StatusCode == HttpStatusCode.OK)
+            if (id != "")
             {
-                var readTask = result.Content.ReadAsStringAsync();
-                readTask.Wait();
 
-                var user = JsonConvert.DeserializeObject<User>(readTask.Result);
-                return View(user);
-            }
-            else if(result.StatusCode == HttpStatusCode.Unauthorized)
-            {
-               return RedirectToAction("Index", "Login");
+
+
+                var direccion = "Perfil/" + id;
+                var respuesta = Data.Instancia.GuatChatService.cliente.GetAsync(direccion);
+                respuesta.Wait();
+
+                var result = respuesta.Result;
+
+                if (result.StatusCode == HttpStatusCode.OK)
+                {
+                    var readTask = result.Content.ReadAsStringAsync();
+                    readTask.Wait();
+
+                    var user = JsonConvert.DeserializeObject<User>(readTask.Result);
+                    return View(user);
+                }
+                else if (result.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+                else
+                {
+                    return null;
+                }
             }
             else
             {
-                return null;
+                return RedirectToAction("Index", "Login");
             }
         }
 
@@ -52,6 +63,48 @@ namespace MVC_Chat.Controllers
             user.Telefono = 0;
 
             return View(user);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult MenuResult(FormCollection collection)
+        {
+            try
+            {
+                if (collection["CrearConversacion"] != null)
+                {
+                    return RedirectToAction("", "");
+                }
+                else if (collection["Conversaciones"] != null)
+                {
+                    return RedirectToAction("", "");
+                }
+                else if (collection["EditarPerfil"] != null)
+                {
+                    return RedirectToAction("", "");
+                }
+                else if (collection["EliminarPerfil"] != null)
+                {
+                    return RedirectToAction("", "");
+                }
+                else if (collection["CerrarSesion"] != null)
+                {
+                    return RedirectToAction("CerrarSesion");
+                }
+            }
+            catch (Exception e)
+            {
+                var error = e.Message;
+                return RedirectToAction("HomePerfil");
+            }
+
+            return null;
+        }
+
+        public ActionResult CerrarSesion()
+        {
+            Data.Instancia.GuatChatService.cliente.DefaultRequestHeaders.Authorization = null;
+
+            return RedirectToAction("Index", "Login");
         }
     }
 }

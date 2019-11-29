@@ -10,69 +10,73 @@
 <h2>Mi Perfil</h2>
 
 <br />
+@using (Html.BeginForm("MenuResult", "Perfil"))
+{
 
-<div class="panel panel-heading">
-    <div class="panel-heading">
-        <h3 class="panel-title">@Html.DisplayFor(model => model.Username)</h3>
-    </div>
-    <div class="panel-body">
-        <div>
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.Nombre):
-                </dt>
+    <div class="panel panel-heading">
+        <div class="panel-heading">
+            <h3 class="panel-title">@Html.DisplayFor(model => model.Username)</h3>
+            <button type="submit" class="btn btn-warning pull-right" name="CerrarSesion" value="CerrarSesion">x Cerrar sesión</button>
+        </div>
+        <div class="panel-body">
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Nombre):
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Nombre)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Nombre)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Apellido):
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Apellido):
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Apellido)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Apellido)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Username):
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Username):
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Username)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Username)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Contraseña):
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Contraseña):
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Contraseña)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Contraseña)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Telefono):
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Telefono):
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Telefono)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Telefono)
+                    </dd>
 
-            </dl>
+                </dl>
+            </div>
         </div>
     </div>
-</div>
 
-<br />
+    <br/>
 
-<div class="panel panel-heading">
-    <div class="panel-heading">
-        <h3 class="panel-title">Opciones...</h3>
+    <div class="panel panel-heading">
+        <div class="panel-heading">
+            <h3 class="panel-title">Opciones...</h3>
+        </div>
+        <div class="panel-body">
+            <button type="submit" class="btn btn-success" name="CrearConversacion" value="CrearConversacion">+ Nueva Conversacion</button>
+            <button type="submit" class="btn btn-primary" name="Conversaciones" value="Conversaciones">Mis Conversaciones</button>
+            <button type="submit" class="btn btn-warning" name="EditarPerfil" value="EditarPerfil">Editar Mi Perfil</button>
+            <button type="submit" class="btn btn-danger" name="EliminarPerfil" value="EliminarPerfil">Eliminar Mi Perfil</button>
+        </div>
     </div>
-    <div class="panel-body">
-        <button type="submit" class="btn btn-success" name="CrearConversacion" value="CrearConversacio">+ Nueva Conversacion</button>
-        <button type="submit" class="btn btn-primary" name="Conversaciones" value="Conversaciones">Mis Conversaciones</button>
-        <button type="submit" class="btn btn-warning" name="EditarPerfil" value="EditarPerfil">Editar Mi Perfil</button>
-        <button type="submit" class="btn btn-danger" name="EliminarPerfil" value="EliminarPerfil">Eliminar Mi Perfil</button>
-    </div>
-</div>
+}

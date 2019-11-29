@@ -59,7 +59,7 @@ namespace API_Chat.Controllers
         public IActionResult Create([FromBody]User usuario)
         {
             var sdes = new Utilidades.SDES(usuario.Contraseña,250);
-            usuario.Contraseña = sdes.CifrarContraseña();
+            usuario.Contraseña = sdes.OperarMensaje(1);
             var USER = _userService.Create(usuario);
 
             if (USER != null)
@@ -82,6 +82,8 @@ namespace API_Chat.Controllers
                 return NotFound();
             }
 
+            var sdes = new Utilidades.SDES(usuario.Contraseña, 250);
+            usuario.Contraseña = sdes.OperarMensaje(1);
             _userService.UpdateUser(id, usuario);
             return Ok();
         }
@@ -107,6 +109,7 @@ namespace API_Chat.Controllers
         {
             mensaje.Emisor = idEmisor;
             mensaje.Receptor = idReceptor;
+            mensaje.Fecha = DateTime.Now.ToString();
 
             var sdes = new SDES(mensaje.Contenido,250);
             mensaje.Contenido = sdes.OperarMensaje(1);
@@ -138,7 +141,7 @@ namespace API_Chat.Controllers
         public IActionResult Authenticate([FromBody]User userParameter)
         {
             var sdes = new SDES(userParameter.Contraseña,250);
-            var jwt = _userService.Authenticate(userParameter.Username, sdes.CifrarContraseña());
+            var jwt = _userService.Authenticate(userParameter.Username, sdes.OperarMensaje(1));
 
             //SI DEVUELVE UN JWT NULO, QUIERE DECIR QUE HUBO UN PROBLEMA CON LA AUTENTICACION
             if(jwt == null)

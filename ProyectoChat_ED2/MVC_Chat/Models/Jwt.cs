@@ -15,16 +15,23 @@ namespace MVC_Chat.Models
 
         public string ObtenerId()
         {
-            var tokenHeader = Data.Instancia.GuatChatService.cliente.DefaultRequestHeaders.Authorization.Parameter;
+            var id = "";
 
-            var tokenHandler = new JwtSecurityTokenHandler();
+            if (Data.Instancia.GuatChatService.cliente.DefaultRequestHeaders.Authorization != null)
+            {
 
-            var jwtToken = tokenHandler.ReadJwtToken(tokenHeader);
 
-            var listaClaims = jwtToken.Claims.ToList();
+                var tokenHeader = Data.Instancia.GuatChatService.cliente.DefaultRequestHeaders.Authorization.Parameter;
 
-            var id = listaClaims.Find(x => x.Type == "unique_name").Value.ToString();
-            
+                var tokenHandler = new JwtSecurityTokenHandler();
+
+                var jwtToken = tokenHandler.ReadJwtToken(tokenHeader);
+
+                var listaClaims = jwtToken.Claims.ToList();
+
+                id = listaClaims.Find(x => x.Type == "unique_name").Value.ToString();
+            }
+
             return id;
         }
     }
