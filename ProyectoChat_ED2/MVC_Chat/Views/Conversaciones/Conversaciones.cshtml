@@ -6,7 +6,11 @@
 }
 <br />
 <h2>Conversaciones</h2>
-<br />
+@using (Html.BeginForm("CerrarSesion", "Perfil"))
+{
+    <button type="submit" class="btn btn-warning btn-sm pull-right" name="CerrarSesion" value="CerrarSesion">x Cerrar sesión</button>
+    
+}
 <table class="table">
     <tr class="info">
         <th>
@@ -15,19 +19,23 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @item
-        </td>
-        <td>
-            @Html.ActionLink("Hablar", "Edit",new { id = item })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item
+            </td>
+            <td>
+                @Html.ActionLink("Hablar", "Edit", new { id = item })
+            </td>
+        </tr>
+    }
 
 </table>
 
+<p class="pull-right">
+    @Html.ActionLink("+ Nueva Conversación", "CrearConversacion")
+</p>
 <p>
-    @Html.ActionLink("+ Nueva Conversación", "Create")
+    @Html.ActionLink("<- Regresar", "HomePerfil", "Perfil")
 </p>

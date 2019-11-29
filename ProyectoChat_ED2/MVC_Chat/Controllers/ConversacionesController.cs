@@ -52,14 +52,39 @@ namespace MVC_Chat.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
-            
-
-            var us = new User();
-            us.Conversaciones = new List<string>();
-            us.Conversaciones.Add("Chian");
-            us.Conversaciones.Add("Andrita tu amor");
-            us.Conversaciones.Add("Diana tu love");
-            return View(us);
         }
+
+        public ActionResult CrearConversacion()
+        {
+            string id = new Jwt().ObtenerId();
+
+            if (id != "")
+            {
+                var direccion = "AllUsers";
+                var respuesta = Data.Instancia.GuatChatService.cliente.GetAsync(direccion);
+                respuesta.Wait();
+
+                var result = respuesta.Result;
+
+                if (result.StatusCode == HttpStatusCode.OK)
+                {
+                    var readTask = result.Content.ReadAsStringAsync();
+                    readTask.Wait();
+
+                    var usuariosRegistrados = JsonConvert.DeserializeObject<List<User>>(readTask.Result);
+                    
+                    return View(usuariosRegistrados);
+                }
+                else
+                {
+                    return RedirectToAction("HomePerfil", "Perfil");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login");
+            }
+        }
+
     }
 }

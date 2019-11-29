@@ -189,6 +189,7 @@
     <Content Include="Views\Conversaciones\Conversaciones.cshtml" />
     <Content Include="Views\Perfil\HomePerfil.cshtml" />
     <Content Include="Views\Perfil\Editar.cshtml" />
+    <Content Include="Views\Conversaciones\CrearConversacion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

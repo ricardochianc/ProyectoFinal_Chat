@@ -106,7 +106,7 @@ namespace MVC_Chat.Controllers
 
                 if (collection["CrearConversacion"] != null)
                 {
-                    return RedirectToAction("", "");
+                    return RedirectToAction("CrearConversacion", "Conversaciones");
                 }
                 else if (collection["Conversaciones"] != null)
                 {
