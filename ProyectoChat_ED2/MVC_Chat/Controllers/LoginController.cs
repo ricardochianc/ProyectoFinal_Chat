@@ -40,15 +40,14 @@ namespace MVC_Chat.Controllers
 
                 var jwt = JsonConvert.DeserializeObject<Jwt>(readTask.Result);
 
-                using (var storage = new LocalStorage())
-                {
-                    storage.Clear();
-                    storage.Store("Token", jwt.Token);
-                    storage.Store("id", user.Username);
+                Data.Instancia.GuatChatService.cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", jwt.Token);
 
-                    Data.Instancia.GuatChatService.cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", storage.Get("Token").ToString());
-                }
-                
+                //using (var storage = new LocalStorage())
+                //{
+                //    storage.Clear();
+                //    storage.Store("Token", jwt.Token);
+                //    storage.Store("id", user.Username);
+
                 TempData["token"] = jwt.Token;
 
                 return RedirectToAction("Details", "Perfil");

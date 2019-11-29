@@ -32,7 +32,7 @@ namespace API_Chat.Controllers
 
         // GET: GuatChat/User/Chat/id
         [HttpGet("Perfil/{idEmisor:length(24)}")]
-        public ActionResult<User> GetUser([FromRoute] string idEmisor)
+        public ActionResult<User> GetUser([FromRoute] string idEmisor, [FromBody]User us)
         {
             return Ok(_userService.Get(idEmisor));
         }
