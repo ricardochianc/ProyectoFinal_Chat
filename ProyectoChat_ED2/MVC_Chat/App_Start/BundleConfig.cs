@@ -23,7 +23,7 @@ namespace MVC_Chat
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap-Darkly.css",
                       "~/Content/site.css"));
         }
     }
