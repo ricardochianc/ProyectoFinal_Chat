@@ -27,7 +27,7 @@ namespace API_Chat.Controllers
         [HttpGet("AllUsers")]
         public ActionResult<List<User>> GetAllUsers()
         {
-            return _userService.GetAllUsers();
+            return Ok(_userService.GetAllUsers());
         }
 
         // GET: GuatChat/User/Chat/id
@@ -49,7 +49,7 @@ namespace API_Chat.Controllers
                 mensaje.Contenido = sdes.OperarMensaje(2);
             }
 
-            return mensajesEnConversacion;
+            return Ok(mensajesEnConversacion);
 
         }
 
@@ -64,7 +64,7 @@ namespace API_Chat.Controllers
 
             if (USER != null)
             {
-                return Created("GuatChat/User/Create/Conversaciones/" + USER.Id, USER);
+                return Created("Chat/" + USER.Id, USER);
             }
 
             return Conflict();
@@ -127,7 +127,7 @@ namespace API_Chat.Controllers
         [HttpGet("Conversaciones/{id:length(24)}")]
         public ActionResult<List<string>> GetConversations([FromRoute]string id)
         {
-            return _userService.GetConversations(id);
+            return Ok(_userService.GetConversations(id));
         }
 
         //***************************************************************************************************************************************************
@@ -148,7 +148,7 @@ namespace API_Chat.Controllers
 
             //DE LO CONTRARIO, SE DEVOLVERA UN JWT CON LA INFORMACION PERTINENTE
 
-            return Ok(jwt);
+            return Accepted(jwt);
         }
     }
 }

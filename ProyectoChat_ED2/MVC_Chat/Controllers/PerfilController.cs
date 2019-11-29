@@ -15,11 +15,11 @@ namespace MVC_Chat.Controllers
         }
 
         // GET: Perfil/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details()
         {
             var token = TempData["token"];
 
-            ViewBag.token = "Tok";
+            ViewBag.token = token;
 
             return View();
         }

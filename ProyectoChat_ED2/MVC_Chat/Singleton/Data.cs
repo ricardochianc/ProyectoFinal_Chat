@@ -23,6 +23,6 @@ namespace MVC_Chat.Singleton
             }
         }
 
-        public ApiService GuatChatService = new ApiService();
+        public ApiService GuatChatService = new ApiService("http://localhost:51372/GuatChat/user/");
     }
 }
