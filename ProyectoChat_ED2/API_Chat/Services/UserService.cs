@@ -2,30 +2,39 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using API_Chat.Models;
-using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
-using Microsoft.Extensions.Configuration;
-using MongoDB.Bson;
-using System.Security.Claims;
-using System.Text;
+using MongoDB.Driver.Linq;
+using MongoDB.Driver.GridFS;
 using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using System.Text;
+using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
+using API_Chat.Models;
 
 namespace API_Chat.Services
 {
     public class UserService
     {
         private readonly IMongoCollection<User> _Users;
+        //private readonly IMongoCollection<Document> _documents;
+        private readonly IMongoDatabase _db;
         private readonly AppSettings _appSettings;
+        private GridFSBucket gfs;        
 
         public UserService(IConfiguration config, IOptions<AppSettings> appSettings)
         {
             _appSettings = appSettings.Value;
             var client = new MongoClient(config.GetConnectionString("GuatChatDB"));
             var dataBase = client.GetDatabase("GuatChatDB");
+            _db = dataBase;
             _Users = dataBase.GetCollection<User>("UsuariosGuatChat");
+            //_documents = dataBase.GetCollection<Document>("DocumentosGuatChat");
+
+            gfs = new GridFSBucket(dataBase);
         }
 
         public List<User> GetAllUsers()
@@ -200,24 +209,13 @@ namespace API_Chat.Services
             return jwt;
         }
 
-        public void TokenIsValid(string jwt)
+        public bool SendDocument(string fileName, byte[] fileBytes)
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var token = tokenHandler.ReadJwtToken(jwt);
-
-            var claimsList = token.Claims.ToList();
-
-
-            SecurityToken validatedToken;
-
-            var variable = tokenHandler.ValidateToken(jwt, new TokenValidationParameters
-            {
-                RequireExpirationTime = true
-            },
-            out validatedToken
-            );
-
             
+            GridFSBucket gfs = new GridFSBucket(_db);            
+            var objectId = gfs.UploadFromBytesAsync(fileName, fileBytes);
+
+            return true;
         }
     }
 }
