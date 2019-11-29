@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Mvc;
 using Hanssens.Net;
@@ -45,9 +46,9 @@ namespace MVC_Chat.Controllers
                     storage.Store("Token", jwt.Token);
                     storage.Store("id", user.Username);
 
-                    storage.Get("Token");
+                    Data.Instancia.GuatChatService.cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", storage.Get("Token").ToString());
                 }
-
+                
                 TempData["token"] = jwt.Token;
 
                 return RedirectToAction("Details", "Perfil");
