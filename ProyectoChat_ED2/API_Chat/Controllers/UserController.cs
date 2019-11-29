@@ -32,7 +32,7 @@ namespace API_Chat.Controllers
 
         // GET: GuatChat/User/Chat/id
         [HttpGet("Perfil/{idEmisor:length(24)}")]
-        public ActionResult<User> GetUser([FromRoute] string idEmisor, [FromBody]User us)
+        public ActionResult<User> GetUser([FromRoute] string idEmisor)
         {
             return Ok(_userService.Get(idEmisor));
         }
@@ -59,7 +59,7 @@ namespace API_Chat.Controllers
         public IActionResult Create([FromBody]User usuario)
         {
             var sdes = new Utilidades.SDES(usuario.Contraseña,250);
-            usuario.Contraseña = sdes.CifrarContraseña();
+            usuario.Contraseña = sdes.OperarMensaje(1);
             var USER = _userService.Create(usuario);
 
             if (USER != null)
@@ -138,7 +138,7 @@ namespace API_Chat.Controllers
         public IActionResult Authenticate([FromBody]User userParameter)
         {
             var sdes = new SDES(userParameter.Contraseña,250);
-            var jwt = _userService.Authenticate(userParameter.Username, sdes.CifrarContraseña());
+            var jwt = _userService.Authenticate(userParameter.Username, sdes.OperarMensaje(1));
 
             //SI DEVUELVE UN JWT NULO, QUIERE DECIR QUE HUBO UN PROBLEMA CON LA AUTENTICACION
             if(jwt == null)
