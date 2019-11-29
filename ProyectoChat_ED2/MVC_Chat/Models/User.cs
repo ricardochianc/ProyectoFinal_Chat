@@ -39,5 +39,17 @@ namespace MVC_Chat.Models
         public List<Message> Mensajes { get; set; }
                 
         public List<string> Conversaciones { get; set; }
+
+        public User()
+        {
+            Id = "";
+            Nombre = "";
+            Apellido = "";
+            Username = "";
+            Contraseña = "";
+            Telefono = 0;
+            Mensajes = new List<Message>();
+            Conversaciones = new List<string>();
+        }
     }
 }

@@ -50,7 +50,7 @@ namespace MVC_Chat.Controllers
 
                 TempData["token"] = jwt.Token;
 
-                return RedirectToAction("Details", "Perfil");
+                return RedirectToAction("HomePerfil", "Perfil");
             }
             //Aqui va algo para decirle al usuario que su usuario y contraseña
 

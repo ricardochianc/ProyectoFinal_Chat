@@ -1,0 +1,33 @@
+﻿@model MVC_Chat.Models.User
+
+@{
+    ViewBag.Title = "Conversaciones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<h2>Conversaciones</h2>
+<br />
+<table class="table">
+    <tr class="info">
+        <th>
+            Conversaciones Activas
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Conversaciones) {
+    <tr>
+        <td>
+            @item
+        </td>
+        <td>
+            @Html.ActionLink("Hablar", "Edit")
+        </td>
+    </tr>
+}
+
+</table>
+
+<p>
+    @Html.ActionLink("+ Nueva Conversación", "Create")
+</p>
