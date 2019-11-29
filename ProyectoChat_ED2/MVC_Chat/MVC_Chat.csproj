@@ -181,6 +181,10 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\API_Chat\API_Chat.csproj">
+      <Project>{1fd5f9b3-b518-4780-9317-9c78732a857e}</Project>
+      <Name>API_Chat</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utilidades\Utilidades\Utilidades.csproj">
       <Project>{9a0636f5-042c-4fd4-ab25-a4215503ea50}</Project>
       <Name>Utilidades</Name>
