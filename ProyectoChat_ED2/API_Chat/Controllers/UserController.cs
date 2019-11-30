@@ -58,16 +58,24 @@ namespace API_Chat.Controllers
         [HttpPost("Create")]
         public IActionResult Create([FromBody]User usuario)
         {
-            var sdes = new Utilidades.SDES(usuario.Contraseña,250);
-            usuario.Contraseña = sdes.OperarMensaje(1);
-            var USER = _userService.Create(usuario);
-
-            if (USER != null)
+            try
             {
-                return Created("Chat/" + USER.Id, USER);
-            }
+                var sdes = new Utilidades.SDES(usuario.Contraseña,250);
+                usuario.Contraseña = sdes.OperarMensaje(1);
+                var USER = _userService.Create(usuario);
 
-            return Conflict();
+                if (USER != null)
+                {
+                    return Created("Chat/" + USER.Id, USER);
+                }
+
+                return Conflict();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { message = "INFORMACION INCORRECTA, POR FAVOR REVISE LA INFORMACION" } );
+            }
+            
         }
 
         // PUT: GuatChat/User/Perfil/{id}
@@ -75,17 +83,24 @@ namespace API_Chat.Controllers
         [HttpPut("Perfil/{id:length(24)}")]
         public ActionResult Update(string id, [FromBody] User usuario)
         {
-            var Usuario = _userService.Get(id);
-
-            if (Usuario == null)
+            try
             {
-                return NotFound();
-            }
+                var Usuario = _userService.Get(id);
 
-            var sdes = new Utilidades.SDES(usuario.Contraseña, 250);
-            usuario.Contraseña = sdes.OperarMensaje(1);
-            _userService.UpdateUser(id, usuario);
-            return Ok();
+                if (Usuario == null)
+                {
+                    return NotFound();
+                }
+
+                var sdes = new Utilidades.SDES(usuario.Contraseña, 250);
+                usuario.Contraseña = sdes.OperarMensaje(1);
+                _userService.UpdateUser(id, usuario);
+                return Ok();
+            }
+            catch(Exception e)
+            {
+                return BadRequest(new { message = "INFORMACION INCORRECTA, POR FAVOR REVISE LA INFORMACION" } );
+            }
         }
 
         // DELETE: GuatChat/User/Perfil/id
@@ -152,6 +167,26 @@ namespace API_Chat.Controllers
             //DE LO CONTRARIO, SE DEVOLVERA UN JWT CON LA INFORMACION PERTINENTE
 
             return Accepted(jwt);
+        }
+        
+        [HttpPost("sendoc/{idEmisor:length(24)}/{idReceptor:length(24)}", Name = "PutDocument")]
+        public ActionResult<Doc> SendDocument([FromRoute]string idEmisor,[FromRoute] string idReceptor, [FromBody] Doc document)
+        {
+            if(document != null)
+            {
+                _userService.SendDocuments(document);
+                return Ok(document);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("getdocs/{id:length(24)}")]
+        public ActionResult<List<Doc>> GetDocuments([FromRoute]string id)
+        {
+            return Ok(_userService.GetDocuments(id));
         }
     }
 }

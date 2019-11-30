@@ -20,7 +20,7 @@ namespace API_Chat.Services
     public class UserService
     {
         private readonly IMongoCollection<User> _Users;
-        //private readonly IMongoCollection<Document> _documents;
+        private readonly IMongoCollection<Doc> _documents;
         private readonly IMongoDatabase _db;
         private readonly AppSettings _appSettings;
         private GridFSBucket gfs;        
@@ -29,11 +29,11 @@ namespace API_Chat.Services
         {
             _appSettings = appSettings.Value;
             var client = new MongoClient(config.GetConnectionString("GuatChatDB"));
-            var dataBase = client.GetDatabase("GuatChatDB");
-            _db = dataBase;
+            var dataBase = client.GetDatabase("GuatChatDB");            
             _Users = dataBase.GetCollection<User>("UsuariosGuatChat");
-            //_documents = dataBase.GetCollection<Document>("DocumentosGuatChat");
+            _documents = dataBase.GetCollection<Doc>("DocumentosGuatChat");
 
+            _db = dataBase;
             gfs = new GridFSBucket(dataBase);
         }
 
@@ -208,6 +208,7 @@ namespace API_Chat.Services
             return jwt;
         }
 
+        //FALTA PROBARLO
         public bool SendDocument(string fileName, byte[] fileBytes)
         {
             
@@ -215,6 +216,20 @@ namespace API_Chat.Services
             var objectId = gfs.UploadFromBytesAsync(fileName, fileBytes);
 
             return true;
+        }
+
+        public Doc SendDocuments(Doc document)
+        {
+            _documents.InsertOne(document);
+
+            return document;
+        }
+
+        public List<Doc> GetDocuments(string usId)
+        {
+            var listaDocs = _documents.Find(doc => doc.EmisorId == usId || doc.ReceptorId == usId).ToList();
+
+            return listaDocs;
         }
     }
 }

@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace API_Chat.Models
 {
-    public class User
+    public class Doc
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
@@ -16,28 +15,22 @@ namespace API_Chat.Models
 
         [BsonElement]
         [BsonRepresentation(BsonType.String)]
-        public string Nombre { get; set; }
+        public string DocName { get; set; }
 
         [BsonElement]
         [BsonRepresentation(BsonType.String)]
-        public string Apellido { get; set; }
+        public string EmisorId { get; set; }
 
         [BsonElement]
         [BsonRepresentation(BsonType.String)]
-        public string Username { get; set; }
+        public string ReceptorId { get; set; }
 
         [BsonElement]
         [BsonRepresentation(BsonType.String)]
-        public string Contraseña { get; set; }
+        public string Contenido { get; set; }
 
         [BsonElement]
-        [BsonRepresentation(BsonType.Int64)]
-        public int Telefono { get; set; }
-
-        [BsonElement]
-        public List<Message> Mensajes { get; set; }
-
-        [BsonElement]
-        public List<string> Conversaciones { get; set; } //Tendrá los User de los usuarios con los que se ha hablado?
+        [BsonRepresentation(BsonType.DateTime)]
+        public DateTime FechaUp { get; set; }
     }
 }
