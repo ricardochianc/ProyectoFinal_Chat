@@ -112,6 +112,10 @@ namespace MVC_Chat.Controllers
                 {
                     return RedirectToAction("Conversaciones","Conversaciones");
                 }
+                else if (collection["Archivos"] != null)
+                {
+                    return RedirectToAction("MisDocumentos", "Archivo");
+                }
                 else if (collection["EditarPerfil"] != null)
                 {
                     return RedirectToAction("Editar");

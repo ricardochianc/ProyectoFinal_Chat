@@ -193,6 +193,7 @@
     <Content Include="Views\Conversaciones\CrearConversacion.cshtml" />
     <Content Include="Views\Conversaciones\Mensajes.cshtml" />
     <Content Include="Views\Archivo\Index.cshtml" />
+    <Content Include="Views\Archivo\MisDocumentos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
