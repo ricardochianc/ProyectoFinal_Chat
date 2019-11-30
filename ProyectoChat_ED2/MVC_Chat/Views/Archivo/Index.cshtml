@@ -1,0 +1,36 @@
+﻿@model MVC_Chat.Models.Doc
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br/>
+<br />
+<br />
+<h3>Carga de archivo para enviar a @ViewBag.userReceptor</h3>
+
+<br />
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Seleccione un documento para enviar</h3>
+    </div>
+    <div class="panel-body">
+
+        @if (!TempData.ContainsKey("receptor"))
+        {
+            TempData.Add("receptor", ViewBag.Receptor);
+        }
+        else
+        {
+            TempData["receptor"] = ViewBag.Receptor;
+        }
+
+        @using (Html.BeginForm("Cargar", "Archivo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <input type="file" class="form-control-file" name="postedFile" aria-describedby="fileHelp">
+            <br />
+            <button type="submit" class="btn btn-info">Enviar</button>
+        }
+    </div>
+</div>

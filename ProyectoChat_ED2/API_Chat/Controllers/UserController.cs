@@ -173,8 +173,8 @@ namespace API_Chat.Controllers
         //************************************************************************ARCHIVOS***************************************************************************************
 
         //POST: GuatChat/User/sendoc/idEmisor/idReceptor
-        [HttpPost("sendoc/{idEmisor:length(24)}/{idReceptor:length(24)}", Name = "PutDocument")]
-        public ActionResult<Doc> SendDocument([FromRoute]string idEmisor,[FromRoute] string idReceptor, [FromBody] Doc document)
+        [HttpPost("sendoc", Name = "PutDocument")]
+        public ActionResult<Doc> SendDocument([FromBody] Doc document)
         {
             if(document != null)
             {

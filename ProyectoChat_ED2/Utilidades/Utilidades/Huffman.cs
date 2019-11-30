@@ -12,7 +12,7 @@ namespace Utilidades
         public string RutaAbosolutaServer { get; set; }
         public string RutaAbsolutaArchivoOriginal { get; set; }
         public string NombreArchivoOriginal { get; set; }
-        internal string NombreArchivoOperado { get; set; }
+        public string NombreArchivoOperado { get; set; }
 
         private int CantidadCaracteres { get; set; }
         private List<ObjectCaracter> ListadoCaracteres { get; set; }

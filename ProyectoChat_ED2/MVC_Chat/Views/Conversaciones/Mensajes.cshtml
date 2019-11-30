@@ -39,7 +39,7 @@
                 }
             }
         </div>
-        
+
         @if (Model != null && Model.Count != 0)
         {
             if (!TempData.ContainsKey("receptor"))
@@ -62,7 +62,16 @@
                 TempData.Add("receptor", ViewBag.Receptor);
             }
         }
-        
+
+        @if (!TempData.ContainsKey("receptorUser"))
+        {
+            TempData.Add("receptorUser", ViewBag.UserReceptor);
+        }
+        else
+        {
+            TempData["receptorUser"] = ViewBag.UserReceptor;
+        }
+
         <div class="form-group">
             <div class="col-md-8">
                 <textarea class="form-control" rows="3" cols="85" id="textArea" name="contenido"></textarea>
@@ -76,7 +85,11 @@
     </div>
 }
 
+<div class="col-lg-5 pull-right">
+    @Html.ActionLink("Mandar un archivo", "Index", "Archivo")
+</div>
+
 <div>
-    @Html.ActionLink("<- Regresar", "Conversaciones","Conversaciones")
+    @Html.ActionLink("<- Regresar", "Conversaciones", "Conversaciones")
 </div>
 

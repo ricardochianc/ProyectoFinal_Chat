@@ -136,6 +136,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ArchivoController.cs" />
     <Compile Include="Controllers\ConversacionesController.cs" />
     <Compile Include="Controllers\CrearUsuarioController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Doc.cs" />
     <Compile Include="Models\Jwt.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\User.cs" />
@@ -190,6 +192,7 @@
     <Content Include="Views\Perfil\Editar.cshtml" />
     <Content Include="Views\Conversaciones\CrearConversacion.cshtml" />
     <Content Include="Views\Conversaciones\Mensajes.cshtml" />
+    <Content Include="Views\Archivo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

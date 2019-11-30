@@ -34,13 +34,13 @@ namespace Utilidades
             RutaAbsolutaArchivoOriginal = RutaAbsArchivo;
             RutaAbsolutaServer = RutaAbsServer;
 
-            if (NombreArchivo.Split('.')[1] == "txt")
+            if (NombreArchivo.Split('.')[1] == "huff")
             {
                 RutaAbsolutaArchivoOperado = RutaAbsServer + NombreArchivo.Split('.')[0] + ".sdes";
             }
             else if (NombreArchivo.Split('.')[1] == "sdes")
             {
-                RutaAbsolutaArchivoOperado = RutaAbsServer + NombreArchivo.Split('.')[0] + ".txt";
+                RutaAbsolutaArchivoOperado = RutaAbsServer + NombreArchivo.Split('.')[0] + ".huff";
             }
 
 
