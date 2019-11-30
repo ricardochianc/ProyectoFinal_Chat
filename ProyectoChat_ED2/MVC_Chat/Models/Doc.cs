@@ -13,7 +13,7 @@ namespace MVC_Chat.Models
 
         public string EmisorId { get; set; }
 
-        public string Receptor { get; set; }
+        public string ReceptorId { get; set; }
 
         public string Contenido { get; set; }
 
@@ -24,7 +24,7 @@ namespace MVC_Chat.Models
             Id = "";
             DocName = "";
             EmisorId = "";
-            Receptor = "";
+            ReceptorId = "";
             Contenido = "";
             FechaUp = DateTime.Now;
         }

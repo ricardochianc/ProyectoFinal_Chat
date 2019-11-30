@@ -62,7 +62,7 @@ namespace MVC_Chat.Controllers
                 var doc = new Doc();
                 doc.DocName = nombre;
                 doc.EmisorId = new Jwt().ObtenerId();
-                doc.Receptor = idReceptor.ToString();
+                doc.ReceptorId = idReceptor.ToString();
 
                 using (var file = new FileStream(SDES.RutaAbsolutaArchivoOperado,FileMode.Open))
                 {
@@ -95,14 +95,14 @@ namespace MVC_Chat.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Conversaciones", "Conversaciones");
+                    return RedirectToAction("HomePerfil", "Perfil");
                 }
 
                 
             }
             catch
             {
-                return RedirectToAction("Conversaciones", "Conversaciones");
+                return RedirectToAction("HomePerfil", "Perfil");
             }
         }
     }
