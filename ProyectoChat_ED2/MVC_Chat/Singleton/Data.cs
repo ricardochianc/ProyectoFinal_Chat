@@ -22,7 +22,7 @@ namespace MVC_Chat.Singleton
                 return _instancia;
             }
         }
-
-        public ApiService GuatChatService = new ApiService("http://localhost:51372/GuatChat/user/"); //PJ: 50142 - CH: 51372
+        
+        public ApiService GuatChatService = new ApiService("http://localhost:50142/GuatChat/user/"); //PJ: 50142 - CH: 51372
     }
 }

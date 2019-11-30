@@ -142,13 +142,14 @@ namespace API_Chat.Controllers
             return NoContent(); //Solo se actulizó emisor
         }
 
+        // GET: GuatChat/User/Conversaciones/id
         [HttpGet("Conversaciones/{id:length(24)}")]
         public ActionResult<List<string>> GetConversations([FromRoute]string id)
         {
             return Ok(_userService.GetConversations(id));
         }
 
-        //***************************************************************************************************************************************************
+        //*************************************************************AUTENTICACION E INICIO SE SESION********************************************************************
 
         //POST: GuatChat/User/authenticate
         [AllowAnonymous]
@@ -169,6 +170,9 @@ namespace API_Chat.Controllers
             return Accepted(jwt);
         }
         
+        //************************************************************************ARCHIVOS***************************************************************************************
+
+        //POST: GuatChat/User/sendoc/idEmisor/idReceptor
         [HttpPost("sendoc/{idEmisor:length(24)}/{idReceptor:length(24)}", Name = "PutDocument")]
         public ActionResult<Doc> SendDocument([FromRoute]string idEmisor,[FromRoute] string idReceptor, [FromBody] Doc document)
         {
@@ -183,10 +187,17 @@ namespace API_Chat.Controllers
             }
         }
 
+        // GET: GuatChat/User/getdocs/id
         [HttpGet("getdocs/{id:length(24)}")]
         public ActionResult<List<Doc>> GetDocuments([FromRoute]string id)
         {
             return Ok(_userService.GetDocuments(id));
+        }
+
+        [HttpGet("getdoc/{filename}")]
+        public ActionResult<Doc> GetSingleDoc([FromRoute]string filename)
+        {
+            return Ok(_userService.DownloadDocument(filename));
         }
     }
 }

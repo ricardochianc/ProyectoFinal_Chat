@@ -23,12 +23,14 @@ namespace API_Chat.Services
         private readonly IMongoCollection<Doc> _documents;
         private readonly IMongoDatabase _db;
         private readonly AppSettings _appSettings;
-        private GridFSBucket gfs;        
+        private GridFSBucket gfs;
 
         public UserService(IConfiguration config, IOptions<AppSettings> appSettings)
         {
             _appSettings = appSettings.Value;
+
             var client = new MongoClient(config.GetConnectionString("GuatChatDB"));
+
             var dataBase = client.GetDatabase("GuatChatDB");            
             _Users = dataBase.GetCollection<User>("UsuariosGuatChat");
             _documents = dataBase.GetCollection<Doc>("DocumentosGuatChat");
@@ -177,7 +179,7 @@ namespace API_Chat.Services
             return Usuario.Conversaciones;
         }
 
-        //********************************************************************************************************************************************************************************************************************************************************
+        //***************************************************************AUTENTICACION E INICIO SE SESION*********************************************************************************************************************************************************
         
         public Jwt Authenticate(string userName, string password)
         {
@@ -208,6 +210,7 @@ namespace API_Chat.Services
             return jwt;
         }
 
+        //************************************************************************ARCHIVOS***************************************************************************************
         //FALTA PROBARLO
         public bool SendDocument(string fileName, byte[] fileBytes)
         {
@@ -230,6 +233,13 @@ namespace API_Chat.Services
             var listaDocs = _documents.Find(doc => doc.EmisorId == usId || doc.ReceptorId == usId).ToList();
 
             return listaDocs;
+        }
+
+        public Doc DownloadDocument(string fileName)
+        {
+            var doc = _documents.Find(docX => docX.DocName == fileName).FirstOrDefault();
+
+            return doc;
         }
     }
 }
