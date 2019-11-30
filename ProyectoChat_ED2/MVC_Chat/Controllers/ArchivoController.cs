@@ -85,7 +85,7 @@ namespace MVC_Chat.Controllers
 
                 var result = res.Result;
 
-                if (result.StatusCode == HttpStatusCode.Accepted)
+                if (result.StatusCode == HttpStatusCode.OK)
                 {
                     var readTask = result.Content.ReadAsStringAsync();
                     readTask.Wait();
