@@ -5,10 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <br />
+<br />
+<br />
 <h2>Conversaciones</h2>
 @using (Html.BeginForm("CerrarSesion", "Perfil"))
 {
-    <button type="submit" class="btn btn-warning btn-sm pull-right" name="CerrarSesion" value="CerrarSesion">x Cerrar sesión</button>
+    <button type="submit" class="btn btn-danger btn-sm pull-right" name="CerrarSesion" value="CerrarSesion">x Cerrar sesión</button>
     
 }
 <table class="table">
@@ -26,7 +28,7 @@
                 @item
             </td>
             <td>
-                @Html.ActionLink("Hablar", "Edit", new { id = item })
+                @Html.ActionLink("Hablar", "UserNameToId", new { usernameReceptor = item })
             </td>
         </tr>
     }

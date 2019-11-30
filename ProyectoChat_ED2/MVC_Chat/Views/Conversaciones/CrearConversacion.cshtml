@@ -6,11 +6,13 @@
 }
 
 <br />
+<br />
+<br />
 <h2>Iniciar conversacion</h2>
 
 @using (Html.BeginForm("CerrarSesion", "Perfil"))
 {
-    <button type="submit" class="btn btn-warning btn-sm pull-right" name="CerrarSesion" value="CerrarSesion">x Cerrar sesión</button>
+    <button type="submit" class="btn btn-danger btn-sm pull-right" name="CerrarSesion" value="CerrarSesion">x Cerrar sesión</button>
 }
 <br />
 <table class="table">
@@ -40,7 +42,7 @@
                 @Html.DisplayFor(modelItem => item.Username)
             </td>
             <td>
-                @Html.ActionLink("Hablar", "Edit", new { id = item.Id })
+                @Html.ActionLink("Hablar", "Mensajes", new { id = item.Id })
             </td>
         </tr>
     }

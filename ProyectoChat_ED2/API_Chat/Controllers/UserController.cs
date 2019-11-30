@@ -24,10 +24,10 @@ namespace API_Chat.Controllers
             _userService = userService;
         }
 
-        [HttpGet("AllUsers")]
-        public ActionResult<List<User>> GetAllUsers()
+        [HttpGet("AllUsers/{idEmisor:length(24)}")]
+        public ActionResult<List<User>> GetAllUsers([FromRoute] string idEmisor)
         {
-            return Ok(_userService.GetAllUsers());
+            return Ok(_userService.GetAllUsers(idEmisor));
         }
 
         // GET: GuatChat/User/Chat/id

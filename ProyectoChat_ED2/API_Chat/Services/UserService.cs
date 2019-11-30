@@ -37,9 +37,9 @@ namespace API_Chat.Services
             gfs = new GridFSBucket(dataBase);
         }
 
-        public List<User> GetAllUsers()
+        public List<User> GetAllUsers(string id)
         {
-            return _Users.Find(users => true).ToList();
+            return _Users.Find(users => users.Id != id).ToList();
         }
 
         /// <summary>
@@ -169,7 +169,6 @@ namespace API_Chat.Services
             var enviados = Usuario.Mensajes.FindAll(mensaje => (mensaje.Emisor == idEmisor && mensaje.Receptor == idReceptor) || (mensaje.Emisor == idReceptor && mensaje.Receptor == idEmisor));
             
             return enviados;
-
         }
 
         public List<string> GetConversations(string idEmisor)

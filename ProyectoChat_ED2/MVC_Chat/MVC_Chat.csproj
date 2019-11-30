@@ -159,7 +159,6 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -190,6 +189,7 @@
     <Content Include="Views\Perfil\HomePerfil.cshtml" />
     <Content Include="Views\Perfil\Editar.cshtml" />
     <Content Include="Views\Conversaciones\CrearConversacion.cshtml" />
+    <Content Include="Views\Conversaciones\Mensajes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
