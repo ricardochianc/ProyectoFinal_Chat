@@ -105,5 +105,23 @@ namespace MVC_Chat.Controllers
                 return RedirectToAction("HomePerfil", "Perfil");
             }
         }
+
+
+        public ActionResult MisDocumentos()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Obtener()
+        {
+
+        }
+
+        public ActionResult Descargar()
+        {
+
+        }
     }
+
 }
